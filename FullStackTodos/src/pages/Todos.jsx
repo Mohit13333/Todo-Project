@@ -13,7 +13,7 @@ const Todos = () => {
     description: "",
     dueDate: "",
   });
-  const { storeTokenInLs, userAuthToken,isLoading } = useAuth();
+  const { userAuthToken,isLoading,token,storeTokenInLs} = useAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -40,12 +40,13 @@ const Todos = () => {
       );
       const data = await response.json();
       if (response.ok) {
-        storeTokenInLs(data.token);
+        storeTokenInLs(token)
         setTask({
           title: "",
           description: "",
           dueDate: "",
         });
+        console.log(data)
         toast.success(data.message);
         fetchTodos(); // Refresh task list
       } else {
