@@ -1,31 +1,41 @@
+QPE campus drive
+
 How to use 
 
-QPE campus drive
 
 Todo Web Application
 This is a Todo application that allows users to manage their tasks efficiently. The application enables users to:
 
 1.Add tasks with a title, description, and due date.
+
 2.View tasks in a structured list.
+
 3.Update tasks to change their details or status.
+
 4.Delete tasks when they are no longer needed.
+
 5.Mark tasks as completed when the work is done.
 
 Additional Features:
 
 6.User Authentication: Users can register, log in, and access their personal task list.
+
 7.Contact Functionality: Users can contact for help or assistance anytime via a contact form.
 
 Key Functionalities:
 1.Task Management:
 
 .Add new tasks with title, description, and due date.
+
 .Edit or delete tasks as needed.
 .Mark tasks as completed.
+
 2.User Registration & Login:
 
 .Create an account and log in to manage personal tasks.
+
 .Secure authentication using JWT.
+
 3.Contact Us:
 
 .A contact form for users to get in touch for support or queries.
