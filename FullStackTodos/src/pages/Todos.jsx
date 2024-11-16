@@ -146,11 +146,10 @@ const Todos = () => {
         }
       );
       const data = await response.json();
-      console.log(data);
-      if (response.ok && Array.isArray(data.todosData)) {
-        setServices(data.todosData);
-      } else {
-        toast.error(data.message || "Failed to fetch sorted tasks.");
+      console.log(data.todos);
+      if (response.ok && Array.isArray(data.todos)) {
+        setServices(data.todos);
+        toast.success(data.message)
       }
     } catch (error) {
       toast.error("Error fetching sorted tasks: " + error.message);
