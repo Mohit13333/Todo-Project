@@ -3,6 +3,7 @@ import Footer from "../components/footer";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import Navbar from "../components/NavBar";
 
 const Todos = () => {
   const [dateTime, setDateTime] = useState("");
@@ -174,6 +175,7 @@ const Todos = () => {
   }
   return (
     <>
+    <Navbar/>
       <div className="flex flex-col min-h-screen bg-gray-900 text-gray-100">
         <div className="flex-grow">
           <header className="p-6">
