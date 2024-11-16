@@ -22,19 +22,21 @@ const Register = () => {
     });
   };
 
-  //handling registration form with backend  
-
+  //handling registration form with backend
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URI}/api/auth/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         storeTokenInLs(data.token);
@@ -50,13 +52,11 @@ const Register = () => {
         toast.error(data.extraDetails ? data.extraDetails : data.message);
       }
     } catch (error) {
-     toast.error(error);
+      toast.error(error);
     }
   };
   return (
-
-    // Contact section 
-
+    // Contact section
 
     <section className="min-h-screen bg-gray-900 text-white flex flex-col justify-between">
       <main className="flex-grow flex justify-center items-center py-16 px-6">

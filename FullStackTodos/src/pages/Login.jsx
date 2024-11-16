@@ -10,7 +10,7 @@ const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
-  const { storeTokenInLs } = useAuth();
+  const { storeTokenInLs,isLoading } = useAuth();
   const handleInputChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -19,8 +19,8 @@ const Login = () => {
       [name]: value,
     });
   };
-  
-// Posting Login  details to backend and authorise to login
+
+  // Posting Login  details to backend and authorise to login
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,9 +47,16 @@ const Login = () => {
       toast.error(error);
     }
   };
-  return (
 
-    // Login Section 
+  if (isLoading) {
+    return (
+      <section className="flex items-center justify-center h-screen">
+        <div className="w-[100px] h-[100px] border-8 border-t-8 border-r-blue-600 border-t-green-600 border-l-rose-600 border-solid rounded-full animate-spin"></div>
+      </section>
+    );
+  }
+  return (
+    // Login Section
 
     <section className="min-h-screen bg-gray-900 text-white flex flex-col justify-between">
       <main className="flex-grow flex justify-center items-center py-16 px-6">

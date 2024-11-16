@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FaCheck } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
 import Footer from "../components/footer";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
@@ -8,14 +6,13 @@ import { Link } from "react-router-dom";
 
 const Todos = () => {
   const [dateTime, setDateTime] = useState("");
-  // const [todos, setTodos] = useState([]);
   const [services, setServices] = useState([]);
   const [task, setTask] = useState({
     title: "",
     description: "",
     dueDate: "",
   });
-  const { storeTokenInLs, userAuthToken } = useAuth();
+  const { storeTokenInLs, userAuthToken,isLoading } = useAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -137,7 +134,9 @@ const Todos = () => {
   const fetchSortedTasks = async (sortOrder) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URI}/api/todo/getSortedTodos?sortOrder=${sortOrder}`,
+        `${
+          import.meta.env.VITE_BACKEND_URI
+        }/api/todo/getSortedTodos?sortOrder=${sortOrder}`,
         {
           method: "GET",
           headers: {
@@ -149,7 +148,7 @@ const Todos = () => {
       console.log(data.todos);
       if (response.ok && Array.isArray(data.todos)) {
         setServices(data.todos);
-        toast.success(data.message)
+        toast.success(data.message);
       }
     } catch (error) {
       toast.error("Error fetching sorted tasks: " + error.message);
@@ -165,147 +164,155 @@ const Todos = () => {
     return () => clearInterval(interval);
   }, []);
 
+
+  if (isLoading) {
+    return (
+      <section className="flex items-center justify-center h-screen">
+        <div className="w-[100px] h-[100px] border-8 border-t-8 border-r-blue-600 border-t-green-600 border-l-rose-600 border-solid rounded-full animate-spin"></div>
+      </section>
+    );
+  }
   return (
     <>
-    <div className="flex flex-col min-h-screen bg-gray-900 text-gray-100">
-      <div className="flex-grow">
-        <header className="p-6">
-          <h1 className="font-bold mt-20 text-center text-4xl sm:text-5xl">
-            Todo List
-          </h1>
-        </header>
-        <h2 className="mt-4 font-semibold text-center text-xl sm:text-2xl">
-          {dateTime}
-        </h2>
-        <section>
-          <form
-            onSubmit={handleFormSubmit}
-            className="flex flex-wrap justify-center mt-10 gap-4 px-6"
-          >
-            <input
-              type="text"
-              className="w-full sm:w-2/3 md:w-1/2 bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 p-3 transition-colors duration-200 ease-in-out"
-              autoComplete="off"
-              name="title"
-              value={task.title}
-              onChange={handleInputChange}
-              placeholder="Title"
-            />
-            <input
-              type="text"
-              className="w-full sm:w-2/3 md:w-1/2 bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 p-3 transition-colors duration-200 ease-in-out"
-              autoComplete="off"
-              name="description"
-              value={task.description}
-              onChange={handleInputChange}
-              placeholder="Description"
-            />
-            <input
-              type="date"
-              className="w-full sm:w-2/3 md:w-1/2 bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 p-3 transition-colors duration-200 ease-in-out"
-              autoComplete="off"
-              name="dueDate"
-              value={task.dueDate}
-              onChange={handleInputChange}
-              placeholder="dueDate"
-            />
-            <button
-              type="submit"
-              className="w-full sm:w-auto bg-indigo-500 border-0 py-3 px-6 rounded font-bold text-lg text-center focus:outline-none hover:bg-indigo-600 transition duration-200"
-            >
-              Add Task
-            </button>
-          </form>
-        </section>
-        <section className="mx-auto max-w-screen-xl p-4">
-          <div className="flex items-center justify-center ">
-            <button
-              className="hover:underline mx-8 w-fit text-red-600 transition-colors duration-200 border-2 border-red-500 rounded-lg p-4"
-              onClick={() => fetchSortedTasks("asc")}
-            >
-              sort by asc due Date
-            </button>
-            <button
-              className="hover:underline w-fit text-red-600 transition-colors duration-200 border-2 border-red-500 rounded-lg p-4"
-              onClick={() => fetchSortedTasks("desc")}
-            >
-              Sort by desc due Date
-            </button>
-          </div>
-          <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
-            <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
-              Todos
+      <div className="flex flex-col min-h-screen bg-gray-900 text-gray-100">
+        <div className="flex-grow">
+          <header className="p-6">
+            <h1 className="font-bold mt-20 text-center text-4xl sm:text-5xl">
+              Todo List
             </h1>
-            <table className="min-w-full bg-white border-collapse">
-              <thead>
-                <tr className="bg-gray-100 border-b border-gray-200">
-                  <th className="text-md md:text-lg p-4 font-semibold text-gray-600 text-center tracking-wider">
-                    Work Done
-                  </th>
-                  <th className="text-md md:text-lg p-4 font-semibold text-gray-600 text-center tracking-wider">
-                    Title
-                  </th>
-                  <th className="text-md md:text-lg p-4 font-semibold text-gray-600 text-center tracking-wider">
-                    Description
-                  </th>
-                  <th className="text-md md:text-lg p-4 font-semibold text-gray-600 text-center tracking-wider">
-                    Due Date
-                  </th>
-                  <th className="text-md md:text-lg p-4 font-semibold text-gray-600 text-center tracking-wider">
-                    Update
-                  </th>
-                  <th className="text-md md:text-lg p-4 font-semibold text-gray-600 text-center tracking-wider">
-                    Delete
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {services.map((curTask,index) => (
-                  <tr
-                    key={curTask.id || index}
-                    className="border-b border-gray-200 hover:bg-gray-50 transition duration-300"
-                  >
-                    <td className="text-md md:text-lg p-4 font-medium text-center text-gray-700">
-                      <input
-                        type="checkbox"
-                        checked={curTask.isChecked}
-                        onClick={() => handleToggleCheck(curTask._id)}
-                        readOnly
-                      />
-                    </td>
-                    <td className="text-md md:text-lg p-4 font-medium text-center text-gray-700">
-                      {curTask.title}
-                    </td>
-                    <td className="text-md md:text-lg p-4 font-medium text-center text-gray-700">
-                      {curTask.description}
-                    </td>
-                    <td className="text-md md:text-lg p-4 font-medium text-center text-gray-700">
-                      {curTask.dueDate}
-                    </td>
-                    <td className="text-xl md:text-lg p-4 font-medium text-center text-red-500">
-                      <Link to={`/admin/users/${curTask._id}/edit`}>
-                        Update
-                      </Link>
-                    </td>
-                    <td className="text-xl md:text-lg p-4 font-medium text-center text-red-500">
-                      <button
-                        className="hover:underline text-red-600 transition-colors duration-200"
-                        onClick={() => deleteTask(curTask._id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
+          </header>
+          <h2 className="mt-4 font-semibold text-center text-xl sm:text-2xl">
+            {dateTime}
+          </h2>
+          <section>
+            <form
+              onSubmit={handleFormSubmit}
+              className="flex flex-wrap justify-center mt-10 gap-4 px-6"
+            >
+              <input
+                type="text"
+                className="w-full sm:w-2/3 md:w-1/2 bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 p-3 transition-colors duration-200 ease-in-out"
+                autoComplete="off"
+                name="title"
+                value={task.title}
+                onChange={handleInputChange}
+                placeholder="Title"
+              />
+              <input
+                type="text"
+                className="w-full sm:w-2/3 md:w-1/2 bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 p-3 transition-colors duration-200 ease-in-out"
+                autoComplete="off"
+                name="description"
+                value={task.description}
+                onChange={handleInputChange}
+                placeholder="Description"
+              />
+              <input
+                type="date"
+                className="w-full sm:w-2/3 md:w-1/2 bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 p-3 transition-colors duration-200 ease-in-out"
+                autoComplete="off"
+                name="dueDate"
+                value={task.dueDate}
+                onChange={handleInputChange}
+                placeholder="dueDate"
+              />
+              <button
+                type="submit"
+                className="w-full sm:w-auto bg-indigo-500 border-0 py-3 px-6 rounded font-bold text-lg text-center focus:outline-none hover:bg-indigo-600 transition duration-200"
+              >
+                Add Task
+              </button>
+            </form>
+          </section>
+          <section className="mx-auto max-w-screen-xl p-4">
+            <div className="flex items-center justify-center ">
+              <button
+                className="hover:underline mx-8 w-fit text-red-600 transition-colors duration-200 border-2 border-red-500 rounded-lg p-4"
+                onClick={() => fetchSortedTasks("asc")}
+              >
+                sort by asc due Date
+              </button>
+              <button
+                className="hover:underline w-fit text-red-600 transition-colors duration-200 border-2 border-red-500 rounded-lg p-4"
+                onClick={() => fetchSortedTasks("desc")}
+              >
+                Sort by desc due Date
+              </button>
+            </div>
+            <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
+              <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
+                Todos
+              </h1>
+              <table className="min-w-full bg-white border-collapse">
+                <thead>
+                  <tr className="bg-gray-100 border-b border-gray-200">
+                    <th className="text-md md:text-lg p-4 font-semibold text-gray-600 text-center tracking-wider">
+                      Work Done
+                    </th>
+                    <th className="text-md md:text-lg p-4 font-semibold text-gray-600 text-center tracking-wider">
+                      Title
+                    </th>
+                    <th className="text-md md:text-lg p-4 font-semibold text-gray-600 text-center tracking-wider">
+                      Description
+                    </th>
+                    <th className="text-md md:text-lg p-4 font-semibold text-gray-600 text-center tracking-wider">
+                      Due Date
+                    </th>
+                    <th className="text-md md:text-lg p-4 font-semibold text-gray-600 text-center tracking-wider">
+                      Update
+                    </th>
+                    <th className="text-md md:text-lg p-4 font-semibold text-gray-600 text-center tracking-wider">
+                      Delete
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+                </thead>
+                <tbody>
+                  {services.map((curTask, index) => (
+                    <tr
+                      key={curTask.id || index}
+                      className="border-b border-gray-200 hover:bg-gray-50 transition duration-300"
+                    >
+                      <td className="text-md md:text-lg p-4 font-medium text-center text-gray-700">
+                        <input
+                          type="checkbox"
+                          checked={curTask.isChecked}
+                          onClick={() => handleToggleCheck(curTask._id)}
+                          readOnly
+                        />
+                      </td>
+                      <td className="text-md md:text-lg p-4 font-medium text-center text-gray-700">
+                        {curTask.title}
+                      </td>
+                      <td className="text-md md:text-lg p-4 font-medium text-center text-gray-700">
+                        {curTask.description}
+                      </td>
+                      <td className="text-md md:text-lg p-4 font-medium text-center text-gray-700">
+                        {curTask.dueDate}
+                      </td>
+                      <td className="text-xl md:text-lg p-4 font-medium text-center text-red-500">
+                        <Link to={`/admin/users/${curTask._id}/edit`}>
+                          Update
+                        </Link>
+                      </td>
+                      <td className="text-xl md:text-lg p-4 font-medium text-center text-red-500">
+                        <button
+                          className="hover:underline text-red-600 transition-colors duration-200"
+                          onClick={() => deleteTask(curTask._id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
-  </>
-);
+    </>
+  );
 };
 
 export default Todos;
