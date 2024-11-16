@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
-import { useAuth } from "../store/auth";
-import Footer from "../components/footer";
+import { useNavigate, useParams } from "react-router-dom";  // Import useNavigate
 import { toast } from "react-toastify";
 
 const UpdateDetails = () => {
@@ -11,6 +9,8 @@ const UpdateDetails = () => {
     dueDate: "",
   });
   const params = useParams();
+  const navigate = useNavigate();  // Use the useNavigate hook
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUpdatedData((prev) => ({
@@ -20,20 +20,17 @@ const UpdateDetails = () => {
   };
 
   // handling task updation
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URI}/api/todo//updateTodos/${
-          params.id
-        }`,
+        `${import.meta.env.VITE_BACKEND_URI}/api/todo/updateTodos/${params.id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: userAuthToken,
+            // Authorization: userAuthToken, // Uncomment if using authorization
           },
           body: JSON.stringify(updatedData),
         }
@@ -41,12 +38,13 @@ const UpdateDetails = () => {
       const data = await response.json();
       if (response.ok) {
         toast.success(data.message);
-        <Navigate to="/" />;
+        navigate("/");  // Navigate to the main page after successful update
       }
     } catch (error) {
       toast.error(error.message);
     }
   };
+
   return (
     <>
       <section>
@@ -61,7 +59,7 @@ const UpdateDetails = () => {
                 className="grid grid-flow-row gap-6"
                 onSubmit={handleFormSubmit}
               >
-                {/* Username Input */}
+                {/* Title Input */}
                 <div className="space-y-2">
                   <label htmlFor="userName" className="text-lg font-medium">
                     Title
@@ -78,7 +76,7 @@ const UpdateDetails = () => {
                   />
                 </div>
 
-                {/* Email Input */}
+                {/* Description Input */}
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-lg font-medium">
                     Description
@@ -95,15 +93,15 @@ const UpdateDetails = () => {
                   />
                 </div>
 
-                {/* Phone Input */}
+                {/* Due Date Input */}
                 <div className="space-y-2">
                   <label htmlFor="phone" className="text-lg font-medium">
-                    Phone
+                    Due Date
                   </label>
                   <input
-                    type="Date"
+                    type="date"
                     name="dueDate"
-                    placeholder="Date"
+                    placeholder="Due Date"
                     value={updatedData.dueDate}
                     onChange={handleInputChange}
                     required

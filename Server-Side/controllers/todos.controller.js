@@ -59,27 +59,20 @@ const updateTodos=async (req, res,next) => {
 
 const toggleTodoCheck = async (req, res) => {
     try {
-        const id = req.params.id; // Get the ID from the route parameters
+        const id = req.params.id; 
 
-        // Debug: Log the ID to check if it's received
-        console.log("Received ID:", id);
-
-        // Validate the ID
         if (!id) {
             return res.status(400).json({ message: "Todo ID is required" });
         }
 
-        // Find the task by ID
-        const todo = await Todo.findById(id);
+        const todo = await Todo.findById({_id: id});
 
         if (!todo) {
             return res.status(404).json({ message: "Todo not found" });
         }
 
-        // Toggle the isChecked value
         todo.isChecked = !todo.isChecked;
 
-        // Save the updated document
         const updatedTodo = await todo.save();
 
         res.status(200).json({
