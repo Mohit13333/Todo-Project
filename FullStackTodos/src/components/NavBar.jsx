@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 right-0 w-full bg-gray-900 text-white z-50">
       <div className="flex justify-between items-center px-6 py-4">
-        <div className="text-2xl font-bold">Mohit Singh</div>
+        <div className="text-2xl font-bold"><img src="/images/todo.png" alt="logo" className="w-20 rounded-3xl" /></div>
 
         <button
           className="text-2xl sm:hidden focus:outline-none"
