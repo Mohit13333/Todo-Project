@@ -223,13 +223,13 @@ const Todos = () => {
               className="hover:underline mx-8 w-fit text-red-600 transition-colors duration-200 border-2 border-red-500 rounded-lg p-4"
               onClick={() => fetchSortedTasks("asc")}
             >
-              Sort by Oldest
+              sort by asc due Date
             </button>
             <button
               className="hover:underline w-fit text-red-600 transition-colors duration-200 border-2 border-red-500 rounded-lg p-4"
               onClick={() => fetchSortedTasks("desc")}
             >
-              Sort by Latest
+              Sort by desc due Date
             </button>
           </div>
           <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
