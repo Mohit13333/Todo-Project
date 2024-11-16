@@ -3,7 +3,7 @@ import User from '../models/user.model.js';
 const authMiddleware=async (req,res,next)=>{
   const token = req.header('Authorization');
   if(!token){
-    return res.status(401).send({message:"Please Login"});
+    return res.status(401).send({message:"Unauthorized HTTP request"});
   }
   const jwtToken=token.replace('Bearer ',"").trim();
   
@@ -16,7 +16,7 @@ const authMiddleware=async (req,res,next)=>{
     req.userID=userData._id;
     next();
   } catch (error) {
-    return res.status(401).json({message:"Unauthorized http request"+error.message});
+    return res.status(401).json({message:"Please login"});
   }
 }
 
