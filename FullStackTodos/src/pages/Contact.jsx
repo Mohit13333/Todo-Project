@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Footer from "../components/footer";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const [contact, setContact] = useState({
@@ -9,11 +10,13 @@ const Contact = () => {
     message: "",
   });
   const [userData, setUserData] = useState(true);
-  const { user } = useAuth();
+  const { user,userAuthToken } = useAuth();
   if (userData && user) {
     setContact({ userName: user.userName, email: user.email, message: "" });
     setUserData(false);
   }
+
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setContact((prev) => ({
@@ -27,11 +30,12 @@ const Contact = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URI}/api/form/contact`,
+        `${import.meta.env.VITE_BACKEND_URI}/api/admin/contact`,
         {
           method: "POST",
           headers: {
             "Content-type": "application/json",
+            Authorization: userAuthToken
           },
           body: JSON.stringify(contact),
         }

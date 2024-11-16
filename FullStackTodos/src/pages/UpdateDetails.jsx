@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";  // Import useNavigate
 import { toast } from "react-toastify";
+import { useAuth } from "../store/auth";
 
 const UpdateDetails = () => {
   const [updatedData, setUpdatedData] = useState({
@@ -8,6 +9,7 @@ const UpdateDetails = () => {
     description: "",
     dueDate: "",
   });
+  const {userAuthToken}=useAuth();
   const params = useParams();
   const navigate = useNavigate();  // Use the useNavigate hook
 
@@ -30,7 +32,7 @@ const UpdateDetails = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: userAuthToken, // Uncomment if using authorization
+            Authorization: userAuthToken, // Uncomment if using authorization
           },
           body: JSON.stringify(updatedData),
         }

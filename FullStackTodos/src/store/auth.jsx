@@ -1,28 +1,38 @@
 import { createContext, useContext, useEffect, useState } from "react";
 // import { toast } from "react-toastify";
+
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState();
-  // const [services, setServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // const [usersAllData, setUsersAllData] = useState([])
+
   const userAuthToken = `Bearer ${token}`;
+
+  // Store token in localStorage and update state
   const storeTokenInLs = (serverToken) => {
     setToken(serverToken);
-    return localStorage.setItem("token", serverToken);
+    localStorage.setItem("token", serverToken);
   };
+
   const isLoggedIn = !!token;
+
   const LogoutUser = () => {
-    setToken("");
-    return localStorage.removeItem("token");
+    setToken(null);
+    localStorage.removeItem("token");
   };
-  // Authentication
+
+  // Fetch user data after token is set
   useEffect(() => {
+    if (!token) {
+      setIsLoading(false); // If no token, don't try to fetch user data
+      return;
+    }
+
     const userAuthentication = async () => {
       try {
-        setIsLoading(true);
+        setIsLoading(true); // Set loading true while fetching user data
         const response = await fetch(
           `${import.meta.env.VITE_BACKEND_URI}/api/auth/user`,
           {
@@ -35,42 +45,18 @@ const AuthProvider = ({ children }) => {
         if (response.ok) {
           const data = await response.json();
           setUser(data.userData);
-          setIsLoading(false);
         } else {
-          setIsLoading(false);
+          console.error("Failed to authenticate");
         }
       } catch (error) {
-        console.log("Error while fetching data");
+        console.error("Error while fetching data", error);
+      } finally {
+        setIsLoading(false); // Set loading to false after fetching user data
       }
     };
+
     userAuthentication();
-  }, []);
-
-  // services
-
-  // useEffect(() => {
-  //   const Service = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `${import.meta.env.VITE_BACKEND_URI}/api/todo/getTodos`,
-  //         {
-  //           method: "GET",
-  //           header: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         console.log(data);
-  //         setServices(data.todosData);
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   Service();
-  // }, []);
+  }, [token]); // Run only when token changes
 
   return (
     <AuthContext.Provider
@@ -79,7 +65,6 @@ const AuthProvider = ({ children }) => {
         storeTokenInLs,
         LogoutUser,
         user,
-        // services,
         userAuthToken,
         isLoading,
       }}
