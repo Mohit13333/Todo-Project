@@ -8,13 +8,14 @@ import { Link } from "react-router-dom";
 
 const Todos = () => {
   const [dateTime, setDateTime] = useState("");
+  const [todos, setTodos] = useState("");
   const { services } = useAuth();
   const [task, setTask] = useState({
     title: "",
     description: "",
     dueDate: "",
   });
-  // const { storeTokenInLs } = useAuth();
+  const { storeTokenInLs,userAuthToken } = useAuth();
   const handleInputChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -32,6 +33,7 @@ const Todos = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: userAuthToken
           },
           body: JSON.stringify(task),
         }
@@ -39,7 +41,7 @@ const Todos = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        // storeTokenInLs(data.token);
+        storeTokenInLs(data.token);
         setTask({
           title: "",
           description: "",
@@ -65,7 +67,6 @@ const Todos = () => {
     return () => clearInterval(interval);
   }, []);
 
-
   const deleteTask = async (id) => {
     try {
       const response = await fetch(
@@ -73,7 +74,7 @@ const Todos = () => {
         {
           method: "DELETE",
           headers: {
-            // Authorization: userAuthToken,
+            Authorization: userAuthToken,
           },
         }
       );
@@ -87,46 +88,62 @@ const Todos = () => {
     }
   };
   const handleToggleCheck = async (id) => {
+    if (!id) {
+      console.error("Task ID is missing in frontend");
+      toast.error("Task ID is missing.");
+      return;
+    }
+  
     try {
+      console.log("Frontend is sending ID:", id); // Debug log
+  
       const response = await fetch(
-        `
-        ${import.meta.env.VITE_BACKEND_URI}/api/todo/toggleCheck/${id}`,
+        `${import.meta.env.VITE_BACKEND_URI}/api/todo/toggleCheck/${id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: userAuthToken,
           },
         }
       );
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
+        console.log("Backend response:", data); // Debug log
         // Update local state to reflect the change
-        setServices((prevServices) =>
-          prevServices.map((task) =>
-            task.id === id ? { ...task, isChecked: !task.isChecked } : task
+        setTodos((prevTodos) =>
+          prevTodos.map((task) =>
+            task._id === id ? { ...task, isChecked: !task.isChecked } : task
           )
         );
-        toast.success(data.message);
+        toast.success(data.message || "Task updated successfully.");
       } else {
-        toast.error(data.message);
+        console.error("Backend error:", data);
+        toast.error(data.message || "Failed to update task.");
       }
     } catch (error) {
       console.error("Error toggling check status:", error);
       toast.error("Failed to update task.");
     }
   };
-
+  
+  
 
   const fetchSortedTasks = async (sortOrder) => {
     try {
       const response = await fetch(`
-        ${import.meta.env.VITE_BACKEND_URI}/api/todo/getSortedTodos?sortOrder=${sortOrder}`
-      );
+        ${
+          import.meta.env.VITE_BACKEND_URI
+        }/api/todo/getSortedTodos?sortOrder=${sortOrder}`);
+      console.log(response);
       const data = await response.json();
+      console.log(data);
       if (response.ok) {
-        setTodos(data.todos); // Update state with sorted tasks
+        setTodos(data.todos);
+        console.log(todos);
+        setTask(todos);
       } else {
         toast.error(data.message);
       }
@@ -134,22 +151,6 @@ const Todos = () => {
       console.error("Error fetching sorted tasks:", error);
       toast.error("Failed to fetch tasks.");
     }
-  };
-
-  
-
-
-  const sortTasksByDate = (tasks, sortOrder = "asc") => {
-    return tasks.sort((a, b) => {
-      const dateA = new Date(a.dueDate);
-      const dateB = new Date(b.dueDate);
-      return sortOrder === "desc" ? dateB - dateA : dateA - dateB;
-    });
-  };
-
-  const handleSort = (order) => {
-    const sortedTasks = sortTasksByDate([...task], order); // Clone the tasks before sorting
-    setTodos(sortedTasks); // Update the state with the sorted list
   };
   return (
     <>
@@ -205,8 +206,18 @@ const Todos = () => {
           </section>
           <section className="mx-auto max-w-screen-xl p-4">
             <div className="flex items-center justify-center ">
-            <button className="hover:underline mx-8 w-fit text-red-600 transition-colors duration-200 border-2 border-red-500 rounded-lg p-4" onClick={() => handleSort("asc")}>Sort by Earliest</button>
-            <button className="hover:underline w-fit text-red-600 transition-colors duration-200 border-2 border-red-500 rounded-lg p-4" onClick={() => handleSort("desc")}>Sort by Latest</button>
+              <button
+                className="hover:underline mx-8 w-fit text-red-600 transition-colors duration-200 border-2 border-red-500 rounded-lg p-4"
+                onClick={() => fetchSortedTasks("asc")}
+              >
+                Sort by Earliest
+              </button>
+              <button
+                className="hover:underline w-fit text-red-600 transition-colors duration-200 border-2 border-red-500 rounded-lg p-4"
+                onClick={() => fetchSortedTasks("desc")}
+              >
+                Sort by Latest
+              </button>
             </div>
             <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
               <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
@@ -245,7 +256,7 @@ const Todos = () => {
                         <input
                           type="checkbox"
                           checked={curTask.isChecked}
-                          onChange={() => handleToggleCheck(task.id)}
+                          onClick={() => handleToggleCheck(task.id)}
                         />
                       </td>
                       <td className="text-md md:text-lg p-4 font-medium text-center text-gray-700">

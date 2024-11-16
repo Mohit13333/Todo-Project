@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {todos,getTodos, deleteTodo, updateTodos, toggleTodoCheck, getSortedTodos} from "../controllers/todos.controller.js";
+// import authMiddleware from "../middlewares/auth.middleware.js";
 
 
 const router=Router();

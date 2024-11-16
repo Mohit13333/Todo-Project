@@ -58,9 +58,12 @@ const updateTodos=async (req, res,next) => {
 }
 
 const toggleTodoCheck = async (req, res) => {
-    const id = req.params.id; // Get the ID from the route parameters
-
     try {
+        const id = req.params.id; // Get the ID from the route parameters
+
+        // Debug: Log the ID to check if it's received
+        console.log("Received ID:", id);
+
         // Validate the ID
         if (!id) {
             return res.status(400).json({ message: "Todo ID is required" });
@@ -84,11 +87,10 @@ const toggleTodoCheck = async (req, res) => {
             todo: updatedTodo,
         });
     } catch (error) {
-        console.error(error);
+        console.error("Error:", error);
         res.status(500).json({ message: "Error while updating todo", error });
     }
 };
-
 
 
 // Get all tasks sorted by dueDate
