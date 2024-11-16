@@ -65,32 +65,7 @@ const Todos = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // all todos data
 
-  // useEffect(() => {
-  //   const Service = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `${import.meta.env.VITE_BACKEND_URI}/api/todo/getTodos`,
-  //         {
-  //           method: "GET",
-  //           header: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         console.log(data);
-  //         setServices(data.todosData);
-  //         // console.log(data.message);
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   Service();
-  // }, []);
   const deleteTask = async (id) => {
     try {
       const response = await fetch(
