@@ -19,6 +19,9 @@ const Login = () => {
       [name]: value,
     });
   };
+  
+// Posting Login  details to backend and authorise to login
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -45,6 +48,9 @@ const Login = () => {
     }
   };
   return (
+
+    // Login Section 
+
     <section className="min-h-screen bg-gray-900 text-white flex flex-col justify-between">
       <main className="flex-grow flex justify-center items-center py-16 px-6">
         <div className="w-full max-w-5xl">

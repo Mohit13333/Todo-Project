@@ -21,6 +21,10 @@ const Register = () => {
       [name]: value,
     });
   };
+
+  //handling registration form with backend  
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -50,6 +54,10 @@ const Register = () => {
     }
   };
   return (
+
+    // Contact section 
+
+
     <section className="min-h-screen bg-gray-900 text-white flex flex-col justify-between">
       <main className="flex-grow flex justify-center items-center py-16 px-6">
         <div className="w-full max-w-5xl">

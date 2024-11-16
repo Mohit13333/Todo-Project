@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-// import { toast } from "react-toastify";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -7,18 +6,23 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [services, setServices] = useState([]);
-  // const [usersAllData, setUsersAllData] = useState([])
   const userAuthToken = `Bearer ${token}`;
+
+// adding login tokeen to local sorage
+
   const storeTokenInLs = (serverToken) => {
     setToken(serverToken);
     return localStorage.setItem("token", serverToken);
   };
   const isLoggedIn = !!token;
+
+  // removing login loken from local storage 
+
   const LogoutUser = () => {
     setToken("");
     return localStorage.removeItem("token");
   };
-  // Authentication
+  //User Authentication
   useEffect(() => {
     const userAuthentication = async () => {
       try {
@@ -42,6 +46,8 @@ const AuthProvider = ({ children }) => {
     };
     userAuthentication();
   }, []);
+
+//  Getiing todo data from backend to frontend
 
   useEffect(() => {
     const Service = async () => {

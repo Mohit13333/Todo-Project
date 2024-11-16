@@ -24,6 +24,9 @@ const Todos = () => {
       [name]: value,
     });
   };
+
+  // handling task and posting
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -67,6 +70,8 @@ const Todos = () => {
     return () => clearInterval(interval);
   }, []);
 
+// Task deleting 
+
   const deleteTask = async (id) => {
     try {
       const response = await fetch(
@@ -87,6 +92,9 @@ const Todos = () => {
       toast.error(error.message);
     }
   };
+
+  // Toggle the check box
+
   const handleToggleCheck = async (id) => {
     if (!id) {
       console.error("Task ID is missing in frontend");
@@ -95,8 +103,6 @@ const Todos = () => {
     }
   
     try {
-      console.log("Frontend is sending ID:", id); // Debug log
-  
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URI}/api/todo/toggleCheck/${id}`,
         {
@@ -111,8 +117,6 @@ const Todos = () => {
       const data = await response.json();
   
       if (response.ok) {
-        console.log("Backend response:", data); // Debug log
-        // Update local state to reflect the change
         setTodos((prevTodos) =>
           prevTodos.map((task) =>
             task._id === id ? { ...task, isChecked: !task.isChecked } : task
@@ -129,7 +133,7 @@ const Todos = () => {
     }
   };
   
-  
+  // Sorting task based on due date
 
   const fetchSortedTasks = async (sortOrder) => {
     try {

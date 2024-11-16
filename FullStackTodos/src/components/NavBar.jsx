@@ -57,7 +57,7 @@ const Navbar = () => {
             </NavLink>
           </li>
           {isLoggedIn ? (
-              <li>
+            <li>
               <NavLink
                 to="/logout"
                 className={({ isActive }) =>
@@ -84,17 +84,17 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-indigo-500 font-bold"
-                    : "hover:text-indigo-500"
-                }
-              >
-                Login
-              </NavLink>
-            </li>
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-indigo-500 font-bold"
+                      : "hover:text-indigo-500"
+                  }
+                >
+                  Login
+                </NavLink>
+              </li>
             </>
           )}
         </ul>
@@ -129,45 +129,50 @@ const Navbar = () => {
                 Contact
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-indigo-500 font-bold"
-                    : "hover:text-indigo-500"
-                }
-                onClick={toggleMenu}
-              >
-                Login
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/register"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-indigo-500 font-bold"
-                    : "hover:text-indigo-500"
-                }
-                onClick={toggleMenu}
-              >
-                Register
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/logout"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-indigo-500 font-bold"
-                    : "hover:text-indigo-500"
-                }
-                onClick={toggleMenu}
-              >
-                Logout
-              </NavLink>
-            </li>
+            {!isLoggedIn ? (
+              <>
+                <li>
+                  <NavLink
+                    to="/login"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-indigo-500 font-bold"
+                        : "hover:text-indigo-500"
+                    }
+                    onClick={toggleMenu}
+                  >
+                    Login
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/register"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-indigo-500 font-bold"
+                        : "hover:text-indigo-500"
+                    }
+                    onClick={toggleMenu}
+                  >
+                    Register
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <li>
+                <NavLink
+                  to="/logout"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-indigo-500 font-bold"
+                      : "hover:text-indigo-500"
+                  }
+                  onClick={toggleMenu}
+                >
+                  Logout
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
       )}
