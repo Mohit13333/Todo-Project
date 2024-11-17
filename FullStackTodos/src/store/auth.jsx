@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
@@ -18,20 +19,21 @@ const AuthProvider = ({ children }) => {
   const isLoggedIn = !!token;
 
   const LogoutUser = () => {
+    setUser(null);
     setToken(null);
     localStorage.removeItem("token");
   };
 
-  // Fetch user data after token is set
   useEffect(() => {
     if (!token) {
-      setIsLoading(false); // If no token, don't try to fetch user data
+      setIsLoading(false);
       return;
     }
 
+    // user authentication
     const userAuthentication = async () => {
       try {
-        setIsLoading(true); // Set loading true while fetching user data
+        setIsLoading(true); 
         const response = await fetch(
           `${import.meta.env.VITE_BACKEND_URI}/api/auth/user`,
           {
@@ -45,17 +47,17 @@ const AuthProvider = ({ children }) => {
           const data = await response.json();
           setUser(data.userData);
         } else {
-          console.error("Failed to authenticate");
+          toast.error("Failed to authenticate");
         }
       } catch (error) {
-        console.error("Error while fetching data", error);
+        toast.error("Error while fetching data", error);
       } finally {
-        setIsLoading(false); // Set loading to false after fetching user data
+        setIsLoading(false);
       }
     };
 
     userAuthentication();
-  }, [token]); // Run only when token changes
+  }, [token]);
 
   return (
     <AuthContext.Provider

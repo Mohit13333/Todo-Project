@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";  // Import useNavigate
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../store/auth";
 
@@ -9,9 +9,9 @@ const UpdateDetails = () => {
     description: "",
     dueDate: "",
   });
-  const {userAuthToken}=useAuth();
+  const { userAuthToken } = useAuth();
   const params = useParams();
-  const navigate = useNavigate();  // Use the useNavigate hook
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,7 +32,7 @@ const UpdateDetails = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: userAuthToken, // Uncomment if using authorization
+            Authorization: userAuthToken,
           },
           body: JSON.stringify(updatedData),
         }
@@ -40,7 +40,9 @@ const UpdateDetails = () => {
       const data = await response.json();
       if (response.ok) {
         toast.success(data.message);
-        navigate("/");  // Navigate to the main page after successful update
+        navigate("/");
+      }else{
+        toast.error(data.message);
       }
     } catch (error) {
       toast.error(error.message);
@@ -61,7 +63,6 @@ const UpdateDetails = () => {
                 className="grid grid-flow-row gap-6"
                 onSubmit={handleFormSubmit}
               >
-                {/* Title Input */}
                 <div className="space-y-2">
                   <label htmlFor="userName" className="text-lg font-medium">
                     Title
@@ -78,7 +79,6 @@ const UpdateDetails = () => {
                   />
                 </div>
 
-                {/* Description Input */}
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-lg font-medium">
                     Description
@@ -95,7 +95,6 @@ const UpdateDetails = () => {
                   />
                 </div>
 
-                {/* Due Date Input */}
                 <div className="space-y-2">
                   <label htmlFor="phone" className="text-lg font-medium">
                     Due Date
@@ -111,8 +110,6 @@ const UpdateDetails = () => {
                     className="w-full bg-gray-100 border text-black border-blue-400 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
-
-                {/* Submit Button */}
                 <div className="mt-6 flex justify-center">
                   <button
                     type="submit"

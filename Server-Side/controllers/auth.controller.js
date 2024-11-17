@@ -28,31 +28,32 @@ const register = async (req, res) => {
   }
 };
 
-// Login logic
 const login = async (req, res) => {
   try {
-    const { email, phone, password } = req.body;
+    const { email, password } = req.body;
     const userExisted = await User.findOne({ email });
+    
     if (!userExisted) {
       return res.status(404).json({ message: "Invalid Credentials" });
     }
-    // const user = await bcrypt.compare(password, userExisted.password);
-    const user= await userExisted.comparePassword(password);
+
+    const user = await userExisted.comparePassword(password);
+
     if (user) {
-      return res
-        .status(200)
-        .json({
-          message: "Login Successful",
-          token: await userExisted.generateToken(),
-          userId: userExisted._id.toString(),
-        });
+      const token = await userExisted.generateToken();
+      return res.status(200).json({
+        message: "Login Successful",
+        token: token, 
+        userId: userExisted._id.toString(),
+      });
     } else {
       return res.status(401).json({ message: "Invalid Credentials" });
     }
   } catch (error) {
-    res.status(500).send("internal server error" + error);
+    return res.status(500).send("Internal server error: " + error);
   }
 };
+
 
 const user=async (req, res) => {
   try {
@@ -62,4 +63,4 @@ const user=async (req, res) => {
     console.log(`error from the user route ${error}`)
   }
 }
-export { register, login,user };
+export { register, login ,user };

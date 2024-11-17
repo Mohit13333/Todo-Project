@@ -13,7 +13,7 @@ const Todos = () => {
     description: "",
     dueDate: "",
   });
-  const { userAuthToken,isLoading,token,storeTokenInLs,isLoggedIn} = useAuth();
+  const { userAuthToken,token,storeTokenInLs,isLoggedIn} = useAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -46,9 +46,8 @@ const Todos = () => {
           description: "",
           dueDate: "",
         });
-        console.log(data)
         toast.success(data.message);
-        fetchTodos(); // Refresh task list
+        fetchTodos();
       } else {
         toast.error(data.extraDetails ? data.extraDetails : data.message);
       }
@@ -99,7 +98,7 @@ const Todos = () => {
       const data = await response.json();
       if (response.ok) {
         toast.success(data.message);
-        fetchTodos(); // Refresh task list
+        fetchTodos();
       } else {
         toast.error(data.message || "Failed to delete task.");
       }
@@ -123,7 +122,7 @@ const Todos = () => {
       const data = await response.json();
       if (response.ok) {
         toast.success(data.message || "Task status updated.");
-        fetchTodos(); // Refresh task list
+        fetchTodos();
       } else {
         toast.error(data.message || "Failed to update task status.");
       }
@@ -147,7 +146,6 @@ const Todos = () => {
         }
       );
       const data = await response.json();
-      console.log(data.todos);
       if (response.ok && Array.isArray(data.todos)) {
         setServices(data.todos);
         toast.success(data.message);

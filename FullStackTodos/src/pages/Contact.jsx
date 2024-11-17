@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Footer from "../components/footer";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
-import Navbar from "../components/NavBar";
+import Navbar from "../components/NavBar"
 
 const Contact = () => {
   const [contact, setContact] = useState({
@@ -43,8 +43,8 @@ const Contact = () => {
       const data = await response.json();
       if (response.ok) {
         setContact({
-          userName: user.userName,
-          email: user.email,
+          userName: user ? user.userName : "",
+          email: user ? user.email : "",
           message: "",
         });
         toast.success(data.message);
@@ -52,7 +52,7 @@ const Contact = () => {
         toast.error(data.extraDetails ? data.extraDetails : data.message);
       }
     } catch (error) {
-      console.error(error);
+      toast.error(error);
     }
   };
   return (
@@ -91,7 +91,6 @@ const Contact = () => {
                       value={contact.userName}
                       onChange={handleInputChange}
                       required
-                      readOnly
                       autoComplete="off"
                       className="w-full bg-gray-100 text-black border border-gray-600 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
@@ -108,7 +107,6 @@ const Contact = () => {
                       value={contact.email}
                       onChange={handleInputChange}
                       required
-                      readOnly
                       autoComplete="off"
                       className="w-full bg-gray-100 text-black border border-gray-600 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />

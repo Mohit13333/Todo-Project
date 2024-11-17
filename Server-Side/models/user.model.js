@@ -12,46 +12,30 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-// // secure password with bcrypt
-// userSchema.pre("save", async function (next) {
-//   const user = this;
-// //   if (user.isModified("password")){
-// //     next();
-// //   }
-//   try {
-//     const saltRounds = await bcrypt.genSalt(10);
-//     const hash_password = await bcrypt.hash(user.password, saltRounds);
-//     user.password = hash_password;
-//     next();
-//   } catch (error) {
-//     // next(error);
-//   }
-// });
-
 // compare the paasword
 
-userSchema.methods.comparePassword = async function(password){
+userSchema.methods.comparePassword = async function (password) {
   return bcrypt.compare(password, this.password);
-}
+};
 
 // json web token
 
-userSchema.methods.generateToken=async function(){
-try {
-return jwt.sign({
-  userId: this._id.toString(),
-  email: this.email,
-  isAdmin: this.isAdmin
-},
-process.env.JWT_SECRET_KEY,
-{
-  expiresIn:"30d",
-}
-) 
-} catch (error) {
-  console.log(error);
-}
-}
+userSchema.methods.generateToken = async function () {
+  try {
+    return jwt.sign(
+      {
+        userId: this._id.toString(),
+        email: this.email,
+        isAdmin: this.isAdmin,
+      },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: "30d" }
+    );
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error generating token");
+  }
+};
 
 const User = new model("User", userSchema);
 

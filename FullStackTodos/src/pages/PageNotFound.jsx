@@ -6,7 +6,7 @@ const PageNotFound = () => {
     <>
       <section className="flex text-white items-center justify-center min-h-screen py-16">
         <div className="text-center max-w-[70rem] w-full px-6">
-          <h2 className="text-[18vh] sm:text-[15vh] md:text-[10vh] animate-[fadeIn_1s] bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+          <h2 className="text-[18vh] sm:text-[15vh] md:text-[18vh] animate-[fadeIn_1s] bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
             404
           </h2>
           <h4 className="text-[2rem] sm:text-[1.5rem] mb-6 uppercase font-semibold">

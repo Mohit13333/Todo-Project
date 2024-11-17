@@ -81,4 +81,4 @@ node server.js
 Verify the server is running: The server will be running on the specified port (e.g., http://localhost:8000 ,or the port specified in the console).
 
 Notes:
-you need .env file setup to run frontend and backend both
+you need .env file setup to run frontend and backend both.
