@@ -41,7 +41,7 @@ const UpdateDetails = () => {
       if (response.ok) {
         toast.success(data.message);
         navigate("/");
-      }else{
+      } else {
         toast.error(data.message);
       }
     } catch (error) {
@@ -64,7 +64,7 @@ const UpdateDetails = () => {
                 onSubmit={handleFormSubmit}
               >
                 <div className="space-y-2">
-                  <label htmlFor="userName" className="text-lg font-medium">
+                  <label htmlFor="title" className="text-lg font-medium">
                     Title
                   </label>
                   <input
@@ -80,7 +80,7 @@ const UpdateDetails = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-lg font-medium">
+                  <label htmlFor="description" className="text-lg font-medium">
                     Description
                   </label>
                   <input
@@ -96,7 +96,7 @@ const UpdateDetails = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="phone" className="text-lg font-medium">
+                  <label htmlFor="dueDate" className="text-lg font-medium">
                     Due Date
                   </label>
                   <input
@@ -113,9 +113,9 @@ const UpdateDetails = () => {
                 <div className="mt-6 flex justify-center">
                   <button
                     type="submit"
-                    className="text-white bg-blue-800 py-4 px-9 font-medium text-lg capitalize rounded-lg border border-transparent cursor-pointer hover:bg-blue-700 transition-all duration-300 ease-in-out"
+                    className="w-full sm:w-auto bg-indigo-700 border-0 py-3 px-6 rounded-md text-white font-semibold text-lg text-center focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-50 hover:bg-indigo-900 hover:scale-105 transition duration-300 ease-in-out"
                   >
-                    Submit
+                    Update
                   </button>
                 </div>
               </form>

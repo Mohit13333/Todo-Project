@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../store/auth";
-
+import { FaBars, FaTimes } from "react-icons/fa";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -13,18 +13,20 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 right-0 w-full bg-gray-900 text-white z-50">
       <div className="flex justify-between items-center px-6 py-4">
-        <div className="text-2xl font-bold"><img src="/images/todo.png" alt="logo" className="w-20 rounded-3xl" /></div>
+        <div className="text-2xl font-bold">
+          <img src="/images/todo.png" alt="logo" className="w-20 rounded-3xl" />
+        </div>
 
         <button
           className="text-2xl sm:hidden focus:outline-none"
           onClick={toggleMenu}
           aria-label="Toggle Menu"
         >
-          <div className="space-y-1.5">
-            <span className="block w-6 h-0.5 bg-white"></span>
-            <span className="block w-6 h-0.5 bg-white"></span>
-            <span className="block w-6 h-0.5 bg-white"></span>
-          </div>
+          {isOpen ? (
+            <FaTimes className="text-white" />
+          ) : (
+            <FaBars className="text-white" />
+          )}
         </button>
         <ul className="hidden sm:flex space-x-8 text-lg font-medium">
           <li>

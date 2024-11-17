@@ -121,11 +121,12 @@ const toggleTodoCheck = async (req, res) => {
 };
 
 const getSortedTodos = async (req, res) => {
-  const { sortOrder } = req.query;
+  const { dueTask,checkedTask } = req.query;
   const userId = req.user._id;
   try {
     const todos = await Todo.find({ owner: userId }).sort({
-      dueDate: sortOrder === "desc" ? -1 : 1,
+      isChecked: checkedTask === "desc" ? -1 : 1,
+      dueDate: dueTask === "desc" ? -1 : 1,
     });
     res.status(200).json({ message: "Tasks retrieved successfully", todos });
   } catch (error) {

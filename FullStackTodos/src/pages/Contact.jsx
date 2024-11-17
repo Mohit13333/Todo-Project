@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Footer from "../components/footer";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
-import Navbar from "../components/NavBar"
+import Navbar from "../components/NavBar";
 
 const Contact = () => {
   const [contact, setContact] = useState({

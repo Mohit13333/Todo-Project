@@ -60,7 +60,6 @@ const Register = () => {
     // Contact section
 
     <>
-      {" "}
       <Navbar />
       <section className="min-h-screen bg-gray-900 text-white flex flex-col justify-between">
         <main className="flex-grow flex justify-center items-center py-16 px-6">
@@ -78,7 +77,6 @@ const Register = () => {
                   Register
                   <span className="absolute left-1/2 bottom-[-10px] transform -translate-x-1/2 w-1/4 h-[3px] bg-blue-500"></span>
                 </h1>
-
                 <form className="grid gap-6" onSubmit={handleSubmit}>
                   <div>
                     <label
@@ -146,7 +144,6 @@ const Register = () => {
                       className="w-full bg-gray-100 text-black border border-gray-600 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
-
                   <button
                     type="submit"
                     className="w-full bg-blue-600 text-white py-3 text-lg font-medium rounded-lg shadow hover:bg-blue-700 transition-colors"
@@ -167,7 +164,6 @@ const Register = () => {
             </div>
           </div>
         </main>
-
         <Footer />
       </section>
     </>
