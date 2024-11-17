@@ -23,7 +23,6 @@ const User = () => {
           </nav>
         </div>
       </header>
-      {/* Content Section */}
       <Outlet />
     </>
   );

@@ -76,7 +76,7 @@ const toggleTodoCheck = async (req, res) => {
         const updatedTodo = await todo.save();
 
         res.status(200).json({
-            message: `Todo ${todo.isChecked ? "checked" : "unchecked"} successfully`,
+            message: `Work ${todo.isChecked ? "completed successfully😊" : "incomplete😑"}`,
             todo: updatedTodo,
         });
     } catch (error) {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link,Navigate } from "react-router-dom";
 import Navbar from "../components/NavBar";
 
 const Todos = () => {
@@ -13,7 +13,7 @@ const Todos = () => {
     description: "",
     dueDate: "",
   });
-  const { userAuthToken,isLoading,token,storeTokenInLs} = useAuth();
+  const { userAuthToken,isLoading,token,storeTokenInLs,isLoggedIn} = useAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -166,17 +166,11 @@ const Todos = () => {
     return () => clearInterval(interval);
   }, []);
 
-
-  if (isLoading) {
-    return (
-      <section className="flex items-center justify-center h-screen">
-        <div className="w-[100px] h-[100px] border-8 border-t-8 border-r-blue-600 border-t-green-600 border-l-rose-600 border-solid rounded-full animate-spin"></div>
-      </section>
-    );
-  }
   return (
     <>
     <Navbar/>
+    {isLoggedIn ? (
+      <>
       <div className="flex flex-col min-h-screen bg-gray-900 text-gray-100">
         <div className="flex-grow">
           <header className="p-6">
@@ -313,7 +307,11 @@ const Todos = () => {
           </section>
         </div>
         <Footer />
-      </div>
+        </div>
+        </>
+        ):(
+          <Navigate to="/login"/>
+        )}
     </>
   );
 };

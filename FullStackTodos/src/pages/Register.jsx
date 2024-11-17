@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Footer from "../components/footer";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
 import Navbar from "../components/NavBar";
@@ -153,6 +153,15 @@ const Register = () => {
                   >
                     Register Now
                   </button>
+                  <p className="text-center">
+                    Already have an Account?
+                    <NavLink
+                      className="mx-2 w-full text-blue-500 py-3 text-lg font-medium rounded-lg  hover:text-blue-700 transition-colors"
+                      to="/login"
+                    >
+                      Login.
+                    </NavLink>
+                  </p>
                 </form>
               </div>
             </div>
