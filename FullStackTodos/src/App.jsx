@@ -5,7 +5,7 @@ import User from "./components/layouts/User";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Logout from "./pages/Logout";
-import PageNotFound from "./pages/pageNotFound";
+import PageNotFound from "./pages/PageNotFound";
 import UpdateDetails from "./pages/UpdateDetails";
 
 function App() {
