@@ -250,7 +250,7 @@ const Todos = () => {
                         <div className="mt-6 flex justify-center">
                           <button
                             type="submit"
-                            className="w-full sm:w-auto bg-indigo-500 border-0 py-3 px-6 rounded-md text-white font-semibold text-lg text-center focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-50 hover:bg-indigo-600 hover:scale-105 transition duration-300 ease-in-out"
+                            className="w-full sm:w-auto bg-indigo-800 border-0 py-3 px-6 rounded-md text-white font-semibold text-lg text-center focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-50 hover:bg-indigo-600 hover:scale-105 transition duration-300 ease-in-out"
                           >
                             Add
                           </button>
