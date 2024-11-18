@@ -335,7 +335,7 @@ const Todos = () => {
                           </td>
                           <td className="text-sm sm:text-base p-2 sm:p-4 font-medium text-center">
                             <Link
-                              to={`/admin/users/${curTask._id}/edit`}
+                              to={`/user/task/${curTask._id}/edit`}
                               className="inline-block px-6 py-2 text-sm font-semibold text-white bg-gray-900 rounded-md shadow-lg transition duration-300 transform hover:scale-105 hover:bg-blue-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                             >
                               Update

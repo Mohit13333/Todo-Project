@@ -18,8 +18,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/admin" element={<User />}>
-            <Route path="users/:id/edit" element={<UpdateDetails />} />
+          <Route path="/user" element={<User />}>
+            <Route path="task/:id/edit" element={<UpdateDetails />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
