@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import path from 'path';
 import {router as authRouter} from "./Routers/auth.router.js";
 import { router as contactRouter } from "./Routers/contact.router.js";
 import {router as todoRouter} from "./Routers/todo.router.js";
@@ -10,10 +11,13 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors());
+const _dirname = path.dirname('dist');
 app.use("/api/auth", authRouter);
 app.use("/api/admin", contactRouter);
 app.use("/api/todo",todoRouter);
 app.use(errorMiddleware);
+
+app.use(express.static(path.join(_dirname, process.env.PUBLIC_DIR)));
 
 connectDB()
   .then(() => {

@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
       try {
         setIsLoading(true); 
         const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URI}/api/auth/user`,
+          `/api/auth/user`,
           {
             method: "GET",
             headers: {
