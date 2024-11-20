@@ -1,51 +1,16 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/auth/register",
-      "dest": "server.js"
-    },
-    {
-      "src": "/api/auth/login",
-      "dest": "server.js"
-    },
-    {
-      "src": "/api/auth/user",
-      "dest": "server.js"
-    },
-    {
-      "src": "/api/admin/contact",
-      "dest": "server.js"
-    },
-    {
-      "src": "/api/todo/post",
-      "dest": "server.js"
-    },
-    {
-      "src": "/api/todo/getTodos",
-      "dest": "server.js"
-    },
-    {
-      "src": "/api/todo/deleteTodos/(.*)",
-      "dest": "server.js"
-    },
-    {
-      "src": "/api/todo/updateTodos/(.*)",
-      "dest": "server.js"
-    },
-    {
-      "src": "/api/todo/toggleCheck/(.*)",
-      "dest": "server.js"
-    },
-    {
-      "src": "/api/todo/getSortedTodos",
-      "dest": "server.js"
-    }
-  ]
-}
+    "version": 2,
+    "builds": [
+      {
+        "src": "server.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "server.js"
+      }
+    ]
+  }
+  
