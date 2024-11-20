@@ -2,50 +2,50 @@
     "version": 2,
     "builds": [
       {
-        "src": "index.js",
+        "src": "server.js",
         "use": "@vercel/node"
       }
     ],
     "routes": [
       {
         "src": "/register",
-        "dest": "/index.js"
+        "dest": "/server.js"
       },
       {
         "src": "/login",
-        "dest": "/index.js"
+        "dest": "/server.js"
       },
       {
         "src": "/user",
-        "dest": "/index.js"
+        "dest": "/server.js"
       },
       {
         "src": "/contact",
-        "dest": "/index.js"
+        "dest": "/server.js"
       },
       {
         "src": "/post",
-        "dest": "/index.js"
+        "dest": "/server.js"
       },
       {
         "src": "/getTodos",
-        "dest": "/index.js"
+        "dest": "/server.js"
       },
       {
         "src": "/deleteTodos/(.*)",
-        "dest": "/index.js"
+        "dest": "/server.js"
       },
       {
         "src": "/updateTodos/(.*)",
-        "dest": "/index.js"
+        "dest": "/server.js"
       },
       {
         "src": "/toggleCheck/(.*)",
-        "dest": "/index.js"
+        "dest": "/server.js"
       },
       {
         "src": "/getSortedTodos",
-        "dest": "/index.js"
+        "dest": "/server.js"
       }
     ]
   }
