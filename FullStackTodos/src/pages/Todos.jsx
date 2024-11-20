@@ -28,7 +28,7 @@ const Todos = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `/api/todo/post`,
+        `${import.meta.env.VITE_BACKEND_URI}/api/todo/post`,
         {
           method: "POST",
           headers: {
@@ -60,7 +60,7 @@ const Todos = () => {
   const fetchTodos = async () => {
     try {
       const response = await fetch(
-        `/api/todo/getTodos`,
+        `${import.meta.env.VITE_BACKEND_URI}/api/todo/getTodos`,
         {
           method: "GET",
           headers: {
@@ -87,7 +87,7 @@ const Todos = () => {
   const deleteTask = async (id) => {
     try {
       const response = await fetch(
-        `/api/todo/deleteTodos/${id}`,
+        `${import.meta.env.VITE_BACKEND_URI}/api/todo/deleteTodos/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -111,7 +111,7 @@ const Todos = () => {
   const handleToggleCheck = async (id) => {
     try {
       const response = await fetch(
-        `/api/todo/toggleCheck/${id}`,
+        `${import.meta.env.VITE_BACKEND_URI}/api/todo/toggleCheck/${id}`,
         {
           method: "PUT",
           headers: {

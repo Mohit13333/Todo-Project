@@ -30,7 +30,7 @@ const Contact = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `/api/admin/contact`,
+        `${import.meta.env.VITE_BACKEND_URI}/api/admin/contact`,
         {
           method: "POST",
           headers: {

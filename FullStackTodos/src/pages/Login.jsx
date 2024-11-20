@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `/api/auth/login`,
+        `${import.meta.env.VITE_BACKEND_URI}/api/auth/login`,
         {
           method: "POST",
           headers: {

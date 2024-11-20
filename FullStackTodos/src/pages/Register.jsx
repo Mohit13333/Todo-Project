@@ -29,7 +29,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `/api/auth/register`,
+        `${import.meta.env.VITE_BACKEND_URI}/api/auth/register`,
         {
           method: "POST",
           headers: {

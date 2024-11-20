@@ -27,7 +27,7 @@ const UpdateDetails = () => {
 
     try {
       const response = await fetch(
-        `/api/todo/updateTodos/${params.id}`,
+        `${import.meta.env.VITE_BACKEND_URI}/api/todo/updateTodos/${params.id}`,
         {
           method: "PUT",
           headers: {
