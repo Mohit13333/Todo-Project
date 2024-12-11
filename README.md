@@ -9,7 +9,7 @@ This is a Todo application that allows users to manage their tasks efficiently. 
 
 1.Add tasks with a title, description, and due date.
 
-2.View tasks in a structured list.
+2.View tasks in a structured list(Sorting Tasks).
 
 3.Update tasks to change their details or status.
 
