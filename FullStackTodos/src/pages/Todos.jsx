@@ -260,7 +260,7 @@ const Todos = () => {
                   </div>
                 </main>
               </section>
-              <section className="mx-auto max-w-screen-xl p-4">
+              <section className="mx-auto max-w-screen-xl p-3">
                 <div className="flex justify-center">
                   <select
                     className="w-full sm:w-auto text-white border-2 border-gray-500 rounded-lg p-3 bg-gray-900 text-2xl font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 hover:bg-gray-800 transition duration-200 ease-in-out"

@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
     // user authentication
     const userAuthentication = async () => {
       try {
-        setIsLoading(true); 
+        setIsLoading(true);
         const response = await fetch(
           `${import.meta.env.VITE_BACKEND_URI}/api/auth/user`,
           {
@@ -58,6 +58,17 @@ const AuthProvider = ({ children }) => {
 
     userAuthentication();
   }, [token]);
+
+  if (isLoading) {
+    return (
+      <section className="flex flex-col items-center justify-center h-screen">
+        <div className="w-[100px] h-[100px] border-8 border-t-8 border-r-blue-600 border-t-green-600 border-l-rose-600 border-solid rounded-full animate-spin"></div>
+        <p className="text-md m-2 text-white">
+        Establishing connection, please wait...
+        </p>
+      </section>
+    );
+  }
 
   return (
     <AuthContext.Provider
